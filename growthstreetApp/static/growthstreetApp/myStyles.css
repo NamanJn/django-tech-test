@@ -1,0 +1,25 @@
+
+body{
+    background-color: #c7ddef;
+    text-align:center;
+    padding-top: 65px;
+    margin: auto;
+
+}
+
+form{
+    border: groove;
+    padding: 40px;
+    width: 30%;
+    margin:auto;
+    background-color: #c1e2b3;
+}
+
+.table-header, .question{
+    font-weight: bold;
+}
+
+.error{
+    color:#d9534f;
+}
+
