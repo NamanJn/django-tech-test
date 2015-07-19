@@ -222,6 +222,7 @@ def settingsView(request):
             userDetail = userDetails[0]
             form = UserDetailsForm(instance=userDetail)
         else:
-            form = UserDetailsForm()
+            form = UserDetailsForm(initial={'userEmail': request.user.email})
+            
 
     return render(request, "growthstreetApp/settings.html", {"form": form})

@@ -28,7 +28,8 @@ from django.conf.urls import patterns
 from django.conf.urls import url
 from django.core.urlresolvers import reverse_lazy
 
-from django.contrib.auth import views as auth_views
+#from django.contrib.auth import views as auth_views
+from auth import views as auth_views
 
 
 urlpatterns = patterns('',

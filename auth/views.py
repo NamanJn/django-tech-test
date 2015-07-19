@@ -12,6 +12,7 @@ from django.contrib.auth.forms import (
 )
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
+from django.core import urlresolvers
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, QueryDict
 from django.shortcuts import resolve_url
@@ -38,7 +39,6 @@ def login(request, template_name='registration/login.html',
     """
     redirect_to = request.POST.get(redirect_field_name,
                                    request.GET.get(redirect_field_name, ''))
-
     if request.method == "POST":
         form = authentication_form(request, data=request.POST)
         if form.is_valid():
@@ -67,6 +67,8 @@ def login(request, template_name='registration/login.html',
 
     if current_app is not None:
         request.current_app = current_app
+    if request.user.is_authenticated():
+        return HttpResponseRedirect(urlresolvers.reverse("ViewData"))
 
     return TemplateResponse(request, template_name, context)
 
@@ -106,6 +108,7 @@ def logout(request, next_page=None,
 
     if current_app is not None:
         request.current_app = current_app
+    return HttpResponseRedirect(urlresolvers.reverse("auth_login"))
 
     return TemplateResponse(request, template_name, context)
 

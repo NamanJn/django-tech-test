@@ -44,4 +44,4 @@ class RegistrationAdmin(admin.ModelAdmin):
     resend_activation_email.short_description = _("Re-send activation emails")
 
 
-admin.site.register(RegistrationProfile, RegistrationAdmin)
+#admin.site.register(RegistrationProfile, RegistrationAdmin)

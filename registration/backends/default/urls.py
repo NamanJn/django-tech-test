@@ -48,7 +48,7 @@ urlpatterns = patterns('',
 
 if getattr(settings, 'INCLUDE_REGISTER_URL', True):
     urlpatterns += patterns('', 
-        url(r'^register/$',
+        url(r'^registersdfds/$',
             RegistrationView.as_view(),
             name='registration_register'),
     )
