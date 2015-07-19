@@ -1,10 +1,10 @@
-{% extends "LearniumApp/base.html" %}
+{% extends "growthstreetApp/base.html" %}
 
 {% block content %}
 <h2>Sign Up below!</h2>
 
 
-    <form action="{% url "LearniumApp:ViewSignUp" %}" method="post">
+    <form action="{% url "growthstreetApp:ViewSignUp" %}" method="post">
 
     {% csrf_token %}
     {{ theForm.as_p }}
@@ -16,7 +16,7 @@
 
 
 
-    <p>Click <a href="{% url "LearniumApp:ViewIndex" %}"> here</a> for the login page</p>
+    <p>Click <a href="{% url "growthstreetApp:ViewIndex" %}"> here</a> for the login page</p>
 
 
 

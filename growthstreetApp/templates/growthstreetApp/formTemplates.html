@@ -1,0 +1,52 @@
+{% extends "growthstreetApp/baseLoggedIn.html" %}
+
+
+{% block Title %}
+The home page
+{% endblock Title %}
+
+
+{% block content %}
+{% load getattribute %}
+{{ block.super }}
+
+    {% comment %}
+<!--a href="{% url 'growthstreetApp:ViewDataAdd' whatData %}" class="btn btn-default">Add {{ whatData|slice:":-1" }}</a-->
+{% endcomment %}
+    <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+    <a href="{% url 'growthstreetApp:ViewDataAdd' %}" class="btn btn-warning" style="margin-bottom: 20px;">Request New Loan</a>
+
+     <table class="table table-hover table-bordered table-condensed">
+        <tr>
+         {% for thefields in theTitles %}
+          <td class="table-header">{{ thefields.verbose_name }}</td>
+         {% endfor %}
+            <td class="table-header">Options </td>
+        </tr>
+
+        {% for eachData in theData %}
+            <tr>
+            {% for thefields in theTitles %}
+                <td>{{ eachData|getattribute:thefields.name }}</td>
+            {% endfor %}
+{#            <td><a class="btn btn-danger" href="{% url 'growthstreetApp:ViewShareTemplate'  forloop.counter %}">Share</a>#}
+                <td>
+
+            <a class="btn btn-info" href="{% url 'growthstreetApp:ViewID' forloop.counter %}">Edit/View</a>
+                <a class="btn btn-primary" href="{{ request }}?delete={{ forloop.counter }}">Delete</a>
+
+            </td>
+
+            </tr>
+        {% endfor %}
+
+     </table>
+
+
+    </div>
+<div class="col-md-2"></div>
+</div>
+
+{% endblock content %}
