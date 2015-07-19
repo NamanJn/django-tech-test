@@ -7,7 +7,7 @@ django.setup()
 
 from django.contrib.auth.models import User
 #from django.contrib.sites.models import Site
-from growthstreet.models import UserDetails
+from growthstreet.models import UserDetails,LoanRequest
 users = User.objects.all()
 
 details = UserDetails.objects.all()

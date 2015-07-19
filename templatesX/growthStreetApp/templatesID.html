@@ -12,7 +12,7 @@ h2{
 {% block content %}
     {{ block.super }}
 
-    <form action="{% url "growthstreetApp:ViewID" TemplateID %}" method="POST">
+    <form action="{% url "ViewID" TemplateID %}" method="POST">
 
     {% csrf_token %}
         {{ form.as_p }}

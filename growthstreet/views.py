@@ -45,29 +45,29 @@ def indexView(request):
     context["theForm"] = theForm
     return render(request, "growthstreetApp/index.html", context)
 
-def signUpView(request):
-    if request.user.is_authenticated():
-        return HttpResponseRedirect(urlresolvers.reverse("growthstreetApp:ViewIndex"))
-
-    context = {}
-
-    if request.method == "POST":
-        theForm = UserCreationForm(request.POST)
-
-        if theForm.is_valid():
-            theForm.save()
-            return HttpResponseRedirect(urlresolvers.reverse("ViewSignUpDone", args=("signUpDone",)))
-        else:
-            print "These are the errors shown below \n"
-            print theForm.errors
-
-            tempo = []
-            for i in theForm.errors.values():
-                tempo += i
-            context["formError"] =tempo[0]
-
-    context["theForm"] = UserCreationForm()
-    return render(request, "growthstreetApp/signUp.html", context);
+# def signUpView(request):
+#     if request.user.is_authenticated():
+#         return HttpResponseRedirect(urlresolvers.reverse("growthstreetApp:ViewIndex"))
+#
+#     context = {}
+#
+#     if request.method == "POST":
+#         theForm = UserCreationForm(request.POST)
+#
+#         if theForm.is_valid():
+#             theForm.save()
+#             return HttpResponseRedirect(urlresolvers.reverse("ViewSignUpDone", args=("signUpDone",)))
+#         else:
+#             print "These are the errors shown below \n"
+#             print theForm.errors
+#
+#             tempo = []
+#             for i in theForm.errors.values():
+#                 tempo += i
+#             context["formError"] =tempo[0]
+#
+#     context["theForm"] = UserCreationForm()
+#     return render(request, "growthstreetApp/signUp.html", context);
 
 def signUpDoneView(request,whichOne):
 
@@ -167,7 +167,7 @@ def IDView(request, TEMPLATE_ID):
                 form.save()
                 display = "You have successfully updated the event !"
 
-                return HttpResponseRedirect(urlresolvers.reverse("growthstreetApp:ViewID", args=(TEMPLATE_ID,)))
+                return HttpResponseRedirect(urlresolvers.reverse("ViewID", args=(TEMPLATE_ID,)))
                 #return render(request, "growthstreetApp/templatesID.html", context)
 
         else:
