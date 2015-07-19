@@ -58,9 +58,5 @@ target/
 
 # IDE
 .idea
-<<<<<<< HEAD
-=======
 
 # database
-db.sqlite3
->>>>>>> without

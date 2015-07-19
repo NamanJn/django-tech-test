@@ -3,8 +3,8 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.core import urlresolvers
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponseNotFound, HttpResponse
-from growthstreetApp.models import LoanRequest, UserDetails
-from growthstreetApp.forms import LoanRequestForm, UserDetailsForm
+from growthstreet.models import LoanRequest, UserDetails
+from growthstreet.forms import LoanRequestForm, UserDetailsForm
 
 from django.contrib import auth
 import pdb
@@ -14,10 +14,11 @@ def login_needed(myfunc):
     def inner(*args, **kwargs):
         request = args[0]
         if not request.user.is_authenticated():
-            return HttpResponseRedirect(urlresolvers.reverse("growthstreetApp:ViewIndex"))
+            return HttpResponseRedirect(urlresolvers.reverse("auth_login"))
         return myfunc(*args, **kwargs)
 
     return inner
+
 
 def indexView(request):
 
@@ -25,7 +26,7 @@ def indexView(request):
     context["wrongCredentials"] = 0
 
     if request.user.is_authenticated():
-        return HttpResponseRedirect(urlresolvers.reverse("growthstreetApp:ViewData"))
+        return HttpResponseRedirect(urlresolvers.reverse("auth_login"))
 
     if request.method == "POST":
 
@@ -93,11 +94,11 @@ def homeView(request):
         try:
             templateToDelete = formTemplates[int(templateID)-1]
         except:
-            return HttpResponseRedirect(urlresolvers.reverse("growthstreetApp:ViewIndex"))
+            return HttpResponseRedirect(urlresolvers.reverse("auth_login"))
         print "this is the template to be deleted", templateToDelete
 
         templateToDelete.delete() # deleting the webform
-        return HttpResponseRedirect(urlresolvers.reverse("growthstreetApp:ViewIndex"))
+        return HttpResponseRedirect(urlresolvers.reverse("auth_login"))
 
 
     context = {}

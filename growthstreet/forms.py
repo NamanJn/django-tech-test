@@ -1,4 +1,4 @@
-from growthstreetApp import models
+from growthstreet import models
 from django import forms
 
 

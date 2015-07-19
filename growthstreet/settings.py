@@ -36,10 +36,9 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.sites',
     'django.contrib.staticfiles',
-    'growthstreetApp',
-    'registration'
+    'registration',
+    'growthstreet'
 
 )
 
@@ -115,8 +114,7 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
 EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
 
-SITE_ID = 1
 
-from django.conf import settings
-
-settings.LOGIN_REDIRECT_URL = ''
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "staticFiles"),
+)
