@@ -19,4 +19,6 @@ c.execute("select * from auth_user")
              
 
 results = c.fetchall()
+c.execute("select * from growthstreet_userdetails")
+a = c.fetchall()
 print results

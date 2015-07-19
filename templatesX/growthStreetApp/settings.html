@@ -4,7 +4,10 @@
     {{ block.super }}
     <form action="{% url "ViewSettings" %}" method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+        <table>
+        {{ userform.as_table }}
+    {{ form.as_table }}
+            </table>
     <input type="submit" value="Save!">
     </form>
 {% endblock %}

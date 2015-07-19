@@ -4,7 +4,7 @@ from django.core import urlresolvers
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponseNotFound, HttpResponse
 from growthstreet.models import LoanRequest, UserDetails
-from growthstreet.forms import LoanRequestForm, UserDetailsForm
+from growthstreet.forms import LoanRequestForm, UserDetailsForm,UserForm
 
 from django.contrib import auth
 import pdb
@@ -95,7 +95,6 @@ def homeView(request):
             templateToDelete = formTemplates[int(templateID)-1]
         except:
             return HttpResponseRedirect(urlresolvers.reverse("ViewData"))
-        print "this is the template to be deleted", templateToDelete
 
         templateToDelete.delete() # deleting the webform
         return HttpResponseRedirect(urlresolvers.reverse("ViewData"))
@@ -167,7 +166,6 @@ def IDView(request, TEMPLATE_ID):
 
                 form.save()
                 display = "You have successfully updated the event !"
-                #context["display"] = display
 
                 return HttpResponseRedirect(urlresolvers.reverse("growthstreetApp:ViewID", args=(TEMPLATE_ID,)))
                 #return render(request, "growthstreetApp/templatesID.html", context)
@@ -198,18 +196,18 @@ def settingsView(request):
     userDetails = UserDetails.objects.filter(user=request.user)
 
     if request.method == "POST":
-
+        userform = UserForm(request.POST, instance=request.user)
         if len(userDetails) >= 1:
             userDetail = userDetails[0]
             form = UserDetailsForm(request.POST, instance=userDetail)
-
         else:
             form = UserDetailsForm(request.POST)
 
-        if form.is_valid():
+        if form.is_valid() and userform.is_valid():
             # creating and saving the webform object.
             templateObject = form.save(commit=False)
             templateObject.user = request.user
+            userform.save()
             templateObject.save()
 
             return HttpResponseRedirect(urlresolvers.reverse("ViewSettings"))
@@ -217,12 +215,15 @@ def settingsView(request):
         else:
             context["wrongCredentials"]= -1
     else:
-
+        userform = UserForm(instance=request.user)
         if len(userDetails) >= 1:
             userDetail = userDetails[0]
             form = UserDetailsForm(instance=userDetail)
         else:
-            form = UserDetailsForm(initial={'userEmail': request.user.email})
-            
+            form = UserDetailsForm()
 
-    return render(request, "growthstreetApp/settings.html", {"form": form})
+
+    context = {}
+    context['form'] = form
+    context['userform'] = userform
+    return render(request, "growthstreetApp/settings.html", context)

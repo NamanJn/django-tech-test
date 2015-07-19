@@ -32,7 +32,6 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = (
     'django.contrib.admin',
-    #'django.contrib.auth',
     'auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -122,3 +121,4 @@ STATICFILES_DIRS = (
 )
 
 LOGIN_REDIRECT_URL = '/'
+
