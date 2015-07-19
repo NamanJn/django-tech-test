@@ -1,0 +1,20 @@
+{%  extends "growthstreetApp/base.html" %}
+{% block Title%}
+
+    Login Please
+{% endblock %}
+
+
+{% block content %}
+    <h3>Loan Request Login</h3>
+    <form method="post" action="{% url "growthstreetApp:ViewIndex" %}">
+    {% csrf_token %}
+    {{ theForm.as_p }}
+    <input class="btn btn-default" type="submit" value="Log In">
+    </form>
+    {% if wrongCredentials == -1 %}
+        <h4 style="color:red;"> The password/username could not be found</h4>
+    {%  endif %}
+
+    <p>Not registered yet? Click <a href="{% url "growthstreetApp:ViewSignUp" %}">here</a> to sign up</p>
+{% endblock %}

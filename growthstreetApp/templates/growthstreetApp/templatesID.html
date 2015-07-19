@@ -1,0 +1,41 @@
+{% extends "growthstreetApp/baseLoggedIn.html" %}
+
+{% block cssblock %}
+<style>
+
+h2{
+    color:#d9534f;
+}
+
+</style>
+{% endblock %}
+{% block content %}
+    {{ block.super }}
+
+    <form action="{% url "growthstreetApp:ViewID" TemplateID %}" method="POST">
+
+    {% csrf_token %}
+        {{ form.as_p }}
+
+    <input type="submit" value="Update!" class="btn-primary btn btn-large">
+    </form>
+
+    {% if display %}
+        <h2 id="successDisplay">{{ display }}</h2>
+    {% endif %}
+
+
+
+
+    <script>
+
+    setTimeout(removeDisplay,2000);
+
+    function removeDisplay(){
+        var theDisplay = document.getElementById("successDisplay")
+        if (theDisplay !== null){
+            theDisplay.parentNode.removeChild(theDisplay);
+        }
+    }
+    </script>
+{% endblock %}
