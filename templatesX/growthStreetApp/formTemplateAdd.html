@@ -25,7 +25,7 @@ h3{
 {% block content %}
     {{ block.super }}
 
-    <form action="{% url 'growthstreetApp:ViewDataAdd' %}" method="post">
+    <form action="{% url 'ViewDataAdd' %}" method="post">
 
     {% csrf_token %}
         <table>

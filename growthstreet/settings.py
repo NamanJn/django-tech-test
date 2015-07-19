@@ -38,7 +38,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'registration',
-    'growthstreet'
+    'growthstreet',
+
 
 )
 
@@ -61,7 +62,7 @@ ROOT_URLCONF = 'growthstreet.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'templatesX')],
+        'DIRS': [os.path.join(BASE_DIR, 'templatesX')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -118,3 +119,5 @@ EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "staticFiles"),
 )
+
+LOGIN_REDIRECT_URL = '/'

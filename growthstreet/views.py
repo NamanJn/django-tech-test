@@ -36,7 +36,7 @@ def indexView(request):
 
         if loginTry is not None:
             auth.login(request, loginTry);
-            return HttpResponseRedirect(urlresolvers.reverse("growthstreetApp:ViewData"));
+            return HttpResponseRedirect(urlresolvers.reverse("ViewData"));
 
         else:
             context["wrongCredentials"] = -1
@@ -56,7 +56,7 @@ def signUpView(request):
 
         if theForm.is_valid():
             theForm.save()
-            return HttpResponseRedirect(urlresolvers.reverse("growthstreetApp:ViewSignUpDone", args=("signUpDone",)))
+            return HttpResponseRedirect(urlresolvers.reverse("ViewSignUpDone", args=("signUpDone",)))
         else:
             print "These are the errors shown below \n"
             print theForm.errors
@@ -78,7 +78,7 @@ def signUpDoneView(request,whichOne):
     elif whichOne == "loggedOut":
         context["display"] = "logged out";
         auth.logout(request)
-        return HttpResponseRedirect(urlresolvers.reverse("growthstreetApp:ViewIndex"))
+        return HttpResponseRedirect(urlresolvers.reverse("auth_login"))
 
     return render(request, "growthstreetApp/signUpDone.html", context)
 
@@ -94,11 +94,11 @@ def homeView(request):
         try:
             templateToDelete = formTemplates[int(templateID)-1]
         except:
-            return HttpResponseRedirect(urlresolvers.reverse("auth_login"))
+            return HttpResponseRedirect(urlresolvers.reverse("ViewData"))
         print "this is the template to be deleted", templateToDelete
 
         templateToDelete.delete() # deleting the webform
-        return HttpResponseRedirect(urlresolvers.reverse("auth_login"))
+        return HttpResponseRedirect(urlresolvers.reverse("ViewData"))
 
 
     context = {}
@@ -133,7 +133,7 @@ def dataAddView(request):
             templateObject.user = request.user
             templateObject.save()
 
-            return HttpResponseRedirect(urlresolvers.reverse("growthstreetApp:ViewIndex"));
+            return HttpResponseRedirect(urlresolvers.reverse("ViewData"));
 
         else:
             print form.errors
@@ -212,7 +212,7 @@ def settingsView(request):
             templateObject.user = request.user
             templateObject.save()
 
-            return HttpResponseRedirect(urlresolvers.reverse("growthstreetApp:ViewSettings"))
+            return HttpResponseRedirect(urlresolvers.reverse("ViewSettings"))
 
         else:
             context["wrongCredentials"]= -1

@@ -9,7 +9,9 @@ from growthstreet import views
 urlpatterns = [
 
     #url(r"^$", views.indexView, name="ViewIndex"),
+    #url(r"^(?P<whichOne>(profile|))$", views.homeView, name="ViewData"),
     url(r"^$", views.homeView, name="ViewData"),
+    #url(r"^profile$", views.homeView, name="ViewData"),
     url(r"^signUp/$", views.signUpView, name="ViewSignUp"),
     url(r"^settings/$", views.settingsView, name="ViewSettings"),
 

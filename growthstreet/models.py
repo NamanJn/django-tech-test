@@ -25,8 +25,8 @@ class UserDetails(models.Model):
 
     choices = (('Retail', 'Retail'),
                ('Professional', 'Professional Services'),
-               ("Food","Food & Drink"),
-               ("Entertainment","Entertainment"))
+               ("Food", "Food & Drink"),
+               ("Entertainment", "Entertainment"))
 
     businessSector = models.CharField(verbose_name="Business Sector", max_length=100,
                                     choices=choices, default='boolean', null=True)
