@@ -1,13 +1,10 @@
 
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.core import urlresolvers
 from django.shortcuts import render
-from django.http import HttpResponseRedirect, HttpResponseNotFound, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponseNotFound
 from growthstreet.models import LoanRequest, UserDetails
-from growthstreet.forms import LoanRequestForm, UserDetailsForm,UserForm
+from growthstreet.forms import LoanRequestForm, UserDetailsForm, UserForm
 
-from django.contrib import auth
-import pdb
 
 def login_needed(myfunc):
 
@@ -16,72 +13,7 @@ def login_needed(myfunc):
         if not request.user.is_authenticated():
             return HttpResponseRedirect(urlresolvers.reverse("auth_login"))
         return myfunc(*args, **kwargs)
-
     return inner
-
-
-def indexView(request):
-
-    context = {}
-    context["wrongCredentials"] = 0
-
-    if request.user.is_authenticated():
-        return HttpResponseRedirect(urlresolvers.reverse("auth_login"))
-
-    if request.method == "POST":
-
-        dusername = request.POST["username"]
-        dpassword = request.POST["password"]
-        loginTry = auth.authenticate(username=dusername, password=dpassword)
-
-        if loginTry is not None:
-            auth.login(request, loginTry);
-            return HttpResponseRedirect(urlresolvers.reverse("ViewData"))
-
-        else:
-            context["wrongCredentials"] = -1
-
-    theForm = AuthenticationForm()
-    context["theForm"] = theForm
-    return render(request, "growthstreetApp/index.html", context)
-
-# def signUpView(request):
-#     if request.user.is_authenticated():
-#         return HttpResponseRedirect(urlresolvers.reverse("growthstreetApp:ViewIndex"))
-#
-#     context = {}
-#
-#     if request.method == "POST":
-#         theForm = UserCreationForm(request.POST)
-#
-#         if theForm.is_valid():
-#             theForm.save()
-#             return HttpResponseRedirect(urlresolvers.reverse("ViewSignUpDone", args=("signUpDone",)))
-#         else:
-#             print "These are the errors shown below \n"
-#             print theForm.errors
-#
-#             tempo = []
-#             for i in theForm.errors.values():
-#                 tempo += i
-#             context["formError"] =tempo[0]
-#
-#     context["theForm"] = UserCreationForm()
-#     return render(request, "growthstreetApp/signUp.html", context);
-
-def signUpDoneView(request,whichOne):
-
-    context={}
-    if whichOne == "signUpDone":
-        context["display"] = "signed up";
-
-    elif whichOne == "loggedOut":
-        context["display"] = "logged out";
-        auth.logout(request)
-        return HttpResponseRedirect(urlresolvers.reverse("auth_login"))
-
-    return render(request, "growthstreetApp/signUpDone.html", context)
-
 
 
 @login_needed
@@ -98,7 +30,6 @@ def homeView(request):
 
         templateToDelete.delete() # deleting the webform
         return HttpResponseRedirect(urlresolvers.reverse("ViewData"))
-
 
     context = {}
     formTemplates = request.user.loanrequest_set.all()
@@ -123,7 +54,6 @@ def dataAddView(request):
 
     if request.method == "POST":
 
-        print request.POST
         form = LoanRequestForm(request.POST)
 
         if form.is_valid():
@@ -132,13 +62,10 @@ def dataAddView(request):
             templateObject.user = request.user
             templateObject.save()
 
-            return HttpResponseRedirect(urlresolvers.reverse("ViewData"));
+            return HttpResponseRedirect(urlresolvers.reverse("ViewData"))
 
         else:
-            print form.errors
-            print "This is the form data", form.data
             context["wrongCredentials"]= -1
-            print "This is the form invalid", form.as_p();
 
     else:
         form = LoanRequestForm()
@@ -168,7 +95,6 @@ def IDView(request, TEMPLATE_ID):
                 display = "You have successfully updated the event !"
 
                 return HttpResponseRedirect(urlresolvers.reverse("ViewID", args=(TEMPLATE_ID,)))
-                #return render(request, "growthstreetApp/templatesID.html", context)
 
         else:
             form = LoanRequestForm(instance=selectedData)
@@ -182,11 +108,6 @@ def IDView(request, TEMPLATE_ID):
     context["TemplateID"] = TEMPLATE_ID
 
     return render(request, "growthstreetApp/templatesID.html", context)
-
-
-def thankYouView(request):
-    context = {}
-    return render(request, "growthstreetApp/thankYou.html", context)
 
 
 @login_needed

@@ -3,12 +3,7 @@ from django.forms import ValidationError
 from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
-from django.core.validators import MaxValueValidator, MinValueValidator
 
-
-def RegistrationNumberValidator(value):
-    if len(str(value)) != 8:
-        raise ValidationError('Registration has to be an 8-digit number.')
 
 class LoanRequest(models.Model):
     reason = models.CharField("Reason to borrow", max_length=300)
@@ -34,12 +29,11 @@ class LoanRequest(models.Model):
         return self.__str__()
 
 
-
 class UserDetails(models.Model):
 
     userTelephone = models.PositiveIntegerField("Contact Number", null=False)
     companyNumber = models.PositiveIntegerField("Company Number", null=False)
-                                                #validators=[RegistrationNumberValidator])
+
     businessName = models.CharField("Business Name", max_length=100)
     businessAddress = models.CharField("Business Address", max_length=300)
 

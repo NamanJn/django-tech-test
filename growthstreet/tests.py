@@ -10,6 +10,7 @@ from django.core.exceptions import ValidationError
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
+
 class TestLoanRequest(TestCase):
 
     @classmethod

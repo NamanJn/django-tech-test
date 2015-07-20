@@ -7,7 +7,7 @@
     <ul class="navbar-nav nav navbar-right">
         <li><a>Logged in as: {{ user }}</a></li>
         <li><a href="{% url 'ViewSettings' %}">Settings</a></li>
-        <li><a href="{% url 'ViewSignUpDone' "loggedOut" %}">Log out</a></li>
+        <li><a href="{% url 'auth_logout' %}">Log out</a></li>
 {#        <li><a href="{% url "auth_logout" %}">Log out</a></li>#}
 
     </ul>
