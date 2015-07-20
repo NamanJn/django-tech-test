@@ -32,11 +32,11 @@ def indexView(request):
 
         dusername = request.POST["username"]
         dpassword = request.POST["password"]
-        loginTry = auth.authenticate(username=dusername, password=dpassword);
+        loginTry = auth.authenticate(username=dusername, password=dpassword)
 
         if loginTry is not None:
             auth.login(request, loginTry);
-            return HttpResponseRedirect(urlresolvers.reverse("ViewData"));
+            return HttpResponseRedirect(urlresolvers.reverse("ViewData"))
 
         else:
             context["wrongCredentials"] = -1

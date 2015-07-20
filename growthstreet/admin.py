@@ -11,7 +11,7 @@ class PersonalInfo(admin.StackedInline):
 
 
 class UserAdmin(UserAdmin):
-    inlines = (PersonalInfo, )
+    inlines = (PersonalInfo,)
 
 
 # Re-register UserAdmin
